@@ -2,6 +2,7 @@ import { acceptHMRUpdate, defineStore } from 'pinia'
 
 export type UserState = {
   name: string
+  description: string
   github: string
   email: string
   position: string
@@ -12,6 +13,7 @@ export const useUserStore = defineStore('user', {
   state: (): UserState => {
     return {
       name: 'Ching Hui',
+      description: "I'm a Uaena, also a developer :)",
       github: 'https://github.com/ChingHuiHui',
       email: 'sunny70624@gmail.com',
       position: 'Frontend developer',
