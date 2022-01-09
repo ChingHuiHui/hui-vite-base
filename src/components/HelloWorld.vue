@@ -1,7 +1,11 @@
 <template>
-  <div class="lg:flex lg:space-x-10">
-    <img class="mx-auto mb-12" src="@/assets/images/IU.jpg" alt="" />
-    <section>
+  <div class="relative">
+    <img
+      class="absolute right-0 opacity-50"
+      src="@/assets/images/IU.jpg"
+      alt=""
+    />
+    <section class="relative z-10">
       <h1 class="font-bold text-xl mb-4 lg:text-3xl lg:mb-6">{{ msg }}</h1>
       <div class="mb-4 lg:mb-6">
         <h2 class="font-medium text-lg lg:text-2xl">My name is {{ name }}</h2>
@@ -41,6 +45,6 @@
   }
 
   a {
-    @apply text-gray-500;
+    @apply text-gray-800;
   }
 </style>
