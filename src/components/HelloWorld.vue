@@ -1,52 +1,22 @@
 <script setup lang="ts">
-import { ref } from "vue";
+  import { useUserStore } from '@/stores/user'
+  import { storeToRefs } from 'pinia'
 
-defineProps<{ msg: string }>();
+  defineProps<{ msg: string }>()
 
-const count = ref(0);
+  const userStore = useUserStore()
+
+  const { name, github, email, position, age } = storeToRefs(userStore)
 </script>
 
 <template>
-  <h1>{{ msg }}</h1>
-
-  <p>
-    Recommended IDE setup:
-    <a href="https://code.visualstudio.com/" target="_blank">VSCode</a>
-    +
-    <a href="https://github.com/johnsoncodehk/volar" target="_blank">Volar</a>
-  </p>
-
-  <p>See <code>README.md</code> for more information.</p>
-
-  <p>
-    <a href="https://vitejs.dev/guide/features.html" target="_blank">
-      Vite Docs
-    </a>
-    |
-    <a href="https://v3.vuejs.org/" target="_blank">Vue 3 Docs</a>
-  </p>
-
-  <button type="button" @click="count++">count is: {{ count }}</button>
-  <p>
-    Edit
-    <code>components/HelloWorld.vue</code> to test hot module replacement.
-  </p>
+  <div>
+    <h1 class="text-3xl">{{ msg }}</h1>
+    <h2>{{ name }}</h2>
+    <p>{{ position }}</p>
+    <div class="flex flex-col">
+      <a :href="email" class="text-blue-500" target="_blank">{{ email }}</a>
+      <a :href="github" class="text-blue-500" target="_blank">{{ github }}</a>
+    </div>
+  </div>
 </template>
-
-<style scoped>
-a {
-  color: #42b983;
-}
-
-label {
-  margin: 0 0.5em;
-  font-weight: bold;
-}
-
-code {
-  background-color: #eee;
-  padding: 2px 4px;
-  border-radius: 4px;
-  color: #304455;
-}
-</style>
