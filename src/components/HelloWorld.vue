@@ -1,22 +1,29 @@
 <template>
-  <div>
+  <div class="lg:flex lg:space-x-10">
     <img class="mx-auto mb-12" src="@/assets/images/IU.jpg" alt="" />
-    <h1 class="text-3xl">{{ msg }}</h1>
-    <h2>{{ name }}</h2>
-    <p>{{ description }}</p>
-    <p>{{ position }}</p>
-    <div class="flex flex-col">
-      <a :href="`mailto:${email}`" class="text-blue-500" target="_blank">
-        {{ email }}
-      </a>
-      <a :href="github" class="text-blue-500" target="_blank">{{ github }}</a>
-    </div>
+    <section>
+      <h1 class="font-bold text-xl mb-4 lg:text-3xl lg:mb-6">{{ msg }}</h1>
+      <div class="mb-4 lg:mb-6">
+        <h2 class="font-medium text-lg lg:text-2xl">My name is {{ name }}</h2>
+        <p class="text-purple-500">{{ description }}</p>
+      </div>
+      <div class="flex space-x-2">
+        <p>Contact ME</p>
+        <a :href="`mailto:${email}`" target="_blank">
+          <hui-icon icon="envelope" />
+        </a>
+        <a :href="github" target="_blank">
+          <hui-icon pack="fab" icon="github" />
+        </a>
+      </div>
+    </section>
   </div>
 </template>
 
 <script setup lang="ts">
   import { useUserStore } from '@/stores/user'
   import { storeToRefs } from 'pinia'
+  import HuiIcon from './HuiIcon.vue'
 
   defineProps<{ msg: string }>()
 
@@ -31,5 +38,9 @@
     @apply w-48 pointer-events-none;
 
     clip-path: circle(50%);
+  }
+
+  a {
+    @apply text-gray-500;
   }
 </style>
