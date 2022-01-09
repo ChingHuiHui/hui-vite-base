@@ -13,7 +13,7 @@ export const useUserStore = defineStore('user', {
   state: (): UserState => {
     return {
       name: 'Ching Hui',
-      description: "I'm a Uaena, also a developer :)",
+      description: "I'm a Uaena, also a frontend developer :)",
       github: 'https://github.com/ChingHuiHui',
       email: 'sunny70624@gmail.com',
       position: 'Frontend developer',
