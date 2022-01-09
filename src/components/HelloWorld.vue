@@ -6,7 +6,9 @@
     <p>{{ description }}</p>
     <p>{{ position }}</p>
     <div class="flex flex-col">
-      <a :href="email" class="text-blue-500" target="_blank">{{ email }}</a>
+      <a :href="`mailto:${email}`" class="text-blue-500" target="_blank">
+        {{ email }}
+      </a>
       <a :href="github" class="text-blue-500" target="_blank">{{ github }}</a>
     </div>
   </div>
