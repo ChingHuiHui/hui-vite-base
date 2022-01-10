@@ -1,5 +1,12 @@
-import { createApp } from 'vue'
+import { createApp, provide, h } from 'vue'
 import App from './App.vue'
+
+import {
+  ApolloClient,
+  createHttpLink,
+  InMemoryCache,
+} from '@apollo/client/core'
+import { DefaultApolloClient } from '@vue/apollo-composable'
 
 import { createPinia } from 'pinia'
 
@@ -12,9 +19,26 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 import './assets/styles/index.css'
 
-const app = createApp(App)
+// apollo
+const cache = new InMemoryCache()
+const httpLink = createHttpLink({ uri: 'https://sic.fontech.co/graphql' })
+
+const apolloClient = new ApolloClient({
+  link: httpLink,
+  cache,
+})
+
+const app = createApp({
+  setup() {
+    provide(DefaultApolloClient, apolloClient)
+  },
+  render: () => h(App),
+})
+
+// state management - pinaia
 const pinia = createPinia()
 
+// fontawesome
 const fontAwesomePackages = [fas, fab, far]
 
 function loadFontAwesome() {
