@@ -21,7 +21,9 @@ import './assets/styles/index.css'
 
 // apollo
 const cache = new InMemoryCache()
-const httpLink = createHttpLink({ uri: 'https://sic.fontech.co/graphql' })
+const httpLink = createHttpLink({
+  uri: import.meta.env.VITE_GRAPHQL_HTTP_ENDPOINT,
+})
 
 const apolloClient = new ApolloClient({
   link: httpLink,
