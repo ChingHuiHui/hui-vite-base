@@ -1,23 +1,21 @@
 <template>
   <div class="relative">
-    <img
-      class="absolute right-0 opacity-50"
-      src="@/assets/images/IU.jpg"
-      alt=""
-    />
-    <section class="relative z-10">
-      <h1 class="font-bold text-xl mb-4 lg:text-3xl lg:mb-6">{{ msg }}</h1>
+    <img class="image" :src="image" draggable="false" />
+    <section class="relative pointer-events-none z-10">
+      <h1 class="h1 mb-4 lg:mb-6">{{ msg }}</h1>
       <div class="mb-4 lg:mb-6">
-        <h2 class="font-medium text-lg lg:text-2xl">My name is {{ name }}</h2>
-        <p class="text-purple-500">{{ description }}</p>
+        <h2 class="h2">My name is {{ name }}</h2>
+        <p class="text-purple-300">{{ description }}</p>
       </div>
-      <div class="flex space-x-2">
-        <p>Contact ME</p>
-        <a :href="`mailto:${email}`" target="_blank">
-          <hui-icon icon="envelope" />
-        </a>
-        <a :href="github" target="_blank">
-          <hui-icon pack="fab" icon="github" />
+      <div class="space-x-4 pointer-events-auto">
+        <a
+          v-for="{ link, icon: { pack, name } } in contact"
+          :key="name"
+          class="link text-2xl"
+          :href="link"
+          target="_blank"
+        >
+          <hui-icon :pack="pack" :icon="name" />
         </a>
       </div>
     </section>
@@ -29,39 +27,45 @@
 </template>
 
 <script setup lang="ts">
-  import { useUserStore } from '@/stores/user'
   import { storeToRefs } from 'pinia'
-  import { useQuery, useResult } from '@vue/apollo-composable'
-  import gql from 'graphql-tag'
+  import { computed } from 'vue'
+
+  import useDarkMode from '@/compositions/useDarkMode'
+  import { useUserStore } from '@/stores/user'
+
+  import IUDark from '@/assets/images/IU.jpg'
+  import IULight from '@/assets/images/IU-light.jpg'
 
   import HuiIcon from './HuiIcon.vue'
 
   defineProps<{ msg: string }>()
+
+  const { isDarkMode } = useDarkMode()
 
   const userStore = useUserStore()
 
   const { name, description, github, email, position, age } =
     storeToRefs(userStore)
 
-  const { result, loading } = useQuery(
-    gql`
-      query {
-        greeting
-      }
-    `
-  )
+  const image = computed(() => {
+    return isDarkMode.value ? IUDark : IULight
+  })
 
-  const greeting = useResult(result, '')
+  const contact = [
+    { link: `mailto:${email.value}`, icon: { pack: 'fas', name: 'envelope' } },
+    { link: github.value, icon: { pack: 'fab', name: 'github' } },
+  ]
 </script>
 
 <style scoped>
-  img {
-    @apply w-48 pointer-events-none;
+  .image {
+    @apply absolute top-10 right-0 xl:top-0;
+    @apply w-48 opacity-70 transition-all duration-500;
 
     clip-path: circle(50%);
-  }
 
-  a {
-    @apply text-gray-800;
+    &:hover {
+      @apply transform scale-110 opacity-90;
+    }
   }
 </style>

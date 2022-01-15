@@ -3,5 +3,6 @@ module.exports = {
     require('tailwindcss/nesting'),
     require('tailwindcss'),
     require('autoprefixer'),
+    require('postcss-extend'),
   ],
 }
