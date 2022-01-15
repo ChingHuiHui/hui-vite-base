@@ -1,6 +1,36 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
 import { MODE } from '@/libs/enum'
 
+class LocalStorage {
+  set(key: string, value: string, ttl: number = 30): void {
+    const data = {
+      value,
+      ttl: Date.now() + ttl * 10000,
+    }
+
+    localStorage.setItem(key, JSON.stringify(data))
+  }
+
+  get(key: string) {
+    const data = localStorage.getItem(key)
+
+    if (!data) {
+      return null
+    }
+
+    const { ttl, value } = JSON.parse(data)
+
+    if (Date.now() > ttl) {
+      localStorage.removeItem(key)
+      return null
+    }
+
+    return value
+  }
+}
+
+const storage = new LocalStorage()
+
 export const useModeStore = defineStore('modeStore', {
   state: (): { themeMode: string } => ({
     themeMode: MODE.LIGHT,
@@ -16,7 +46,7 @@ export const useModeStore = defineStore('modeStore', {
         '(prefers-color-scheme: dark)'
       ).matches
 
-      const preferenceFromStorage = localStorage.getItem('theme-mode')
+      const preferenceFromStorage = storage.get('theme-mode')
 
       if (
         preferenceFromStorage === MODE.DARK ||
@@ -35,10 +65,15 @@ export const useModeStore = defineStore('modeStore', {
       const mode = this.themeMode === MODE.DARK ? MODE.LIGHT : MODE.DARK
 
       this.setThemeMode(mode)
-      localStorage.setItem('theme-mode', mode)
+      storage.set('theme-mode', mode)
     },
   },
 })
+
+// HMR (Hot Module Replacement)
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useModeStore, import.meta.hot))
+}
 
 // HMR (Hot Module Replacement)
 if (import.meta.hot) {
