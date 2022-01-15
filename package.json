@@ -17,6 +17,7 @@
     "graphql": "^16.2.0",
     "graphql-tag": "^2.12.6",
     "pinia": "^2.0.9",
+    "postcss-extend": "^1.0.5",
     "vue": "^3.2.25"
   },
   "devDependencies": {

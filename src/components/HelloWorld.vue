@@ -1,22 +1,21 @@
 <template>
   <div class="relative">
-    <img
-      class="absolute top-10 right-0 opacity-80 dark:opacity-50 xl:top-0"
-      :src="image"
-    />
+    <img class="image" :src="image" draggable="false" />
     <section class="relative z-10">
       <h1 class="font-bold text-xl mb-4 lg:text-3xl lg:mb-6">{{ msg }}</h1>
       <div class="mb-4 lg:mb-6">
         <h2 class="font-medium text-lg lg:text-2xl">My name is {{ name }}</h2>
         <p class="description text-purple-300">{{ description }}</p>
       </div>
-      <div class="flex space-x-2">
-        <p>Contact ME</p>
-        <a class="link" :href="`mailto:${email}`" target="_blank">
-          <hui-icon icon="envelope" />
-        </a>
-        <a class="link" :href="github" target="_blank">
-          <hui-icon pack="fab" icon="github" />
+      <div class="space-x-4">
+        <a
+          v-for="{ link, icon: { pack, name } } in contact"
+          :key="name"
+          class="link text-2xl"
+          :href="link"
+          target="_blank"
+        >
+          <hui-icon :pack="pack" :icon="name" />
         </a>
       </div>
     </section>
@@ -51,12 +50,22 @@
   const image = computed(() => {
     return isDarkMode.value ? IUDark : IULight
   })
+
+  const contact = [
+    { link: `mailto:${email.value}`, icon: { pack: 'fab', name: 'github' } },
+    { link: github.value, icon: { pack: 'fas', name: 'envelope' } },
+  ]
 </script>
 
 <style scoped>
-  img {
-    @apply w-48 pointer-events-none;
+  .image {
+    @apply absolute top-10 right-0 xl:top-0;
+    @apply w-48 opacity-70 transition-all duration-500;
 
     clip-path: circle(50%);
+
+    &:hover {
+      @apply transform scale-110 opacity-90;
+    }
   }
 </style>
