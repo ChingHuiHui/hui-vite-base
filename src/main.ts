@@ -17,6 +17,9 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
+import { createI18n } from 'vue-i18n'
+import { zh, en } from '@/lang'
+
 import StoragePlugin from '@/plugins/storage'
 
 import './assets/styles/index.css'
@@ -53,7 +56,17 @@ function loadFontAwesome() {
 
 loadFontAwesome()
 
+const i18n = createI18n({
+  locale: 'en',
+  fallbackLocale: 'en',
+  messages: {
+    'zh-TW': zh,
+    en,
+  },
+})
+
 app.use(StoragePlugin)
 app.use(pinia)
+app.use(i18n)
 
 app.mount('#app')
