@@ -16,7 +16,12 @@ export const useModeStore = defineStore('modeStore', {
         '(prefers-color-scheme: dark)'
       ).matches
 
-      if (userPrefersDark) {
+      const preferenceFromStorage = localStorage.getItem('theme-mode')
+
+      if (
+        preferenceFromStorage === MODE.DARK ||
+        (!preferenceFromStorage && userPrefersDark)
+      ) {
         this.setThemeMode(MODE.DARK)
         return
       }
@@ -27,7 +32,10 @@ export const useModeStore = defineStore('modeStore', {
       this.themeMode = mode
     },
     toggle(): void {
-      this.setThemeMode(this.themeMode === MODE.DARK ? MODE.LIGHT : MODE.DARK)
+      const mode = this.themeMode === MODE.DARK ? MODE.LIGHT : MODE.DARK
+
+      this.setThemeMode(mode)
+      localStorage.setItem('theme-mode', mode)
     },
   },
 })
