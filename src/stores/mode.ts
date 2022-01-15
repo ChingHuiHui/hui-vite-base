@@ -1,28 +1,33 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
+import { MODE } from '@/libs/enum'
 
 export const useModeStore = defineStore('modeStore', {
   state: (): { themeMode: string } => ({
-    themeMode: 'light',
+    themeMode: MODE.LIGHT,
   }),
   getters: {
     isDarkMode(): boolean {
-      return this.themeMode === 'dark'
+      return this.themeMode === MODE.DARK
     },
   },
   actions: {
-    init() {
+    init(): void {
       const userPrefersDark = window.matchMedia(
         '(prefers-color-scheme: dark)'
       ).matches
 
       if (userPrefersDark) {
-        return this.setThemeMode('dark')
+        this.setThemeMode(MODE.DARK)
+        return
       }
 
-      this.setThemeMode('light')
+      this.setThemeMode(MODE.LIGHT)
     },
     setThemeMode(mode: string): void {
       this.themeMode = mode
+    },
+    toggle(): void {
+      this.setThemeMode(this.themeMode === MODE.DARK ? MODE.LIGHT : MODE.DARK)
     },
   },
 })

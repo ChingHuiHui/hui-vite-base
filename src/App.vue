@@ -1,32 +1,30 @@
 <template>
-  <main class="flex flex-col items-center justify-center dark:bg-gray-800">
+  <main
+    class="flex flex-col items-center justify-center dark:bg-gray-800 transition-colors duration-300"
+  >
     <div class="container flex flex-col items-center">
       <HelloWorld msg="Hello It's the vue-project-base" />
+
+      <button @click="toggle">TOGGLE</button>
     </div>
   </main>
 </template>
 
 <script setup lang="ts">
-  import { onBeforeMount, watchEffect } from 'vue-demi'
-  import HelloWorld from './components/HelloWorld.vue'
-  import { useModeStore } from '@/stores/mode'
-  import { storeToRefs } from 'pinia'
+  import { watchEffect } from 'vue'
+  import HelloWorld from '@/components/HelloWorld.vue'
+  import useDarkMode from '@/compositions/useDarkMode'
+  import { MODE } from '@/libs/enum'
 
-  const modeStore = useModeStore()
-
-  const { isDarkMode } = storeToRefs(modeStore)
-
-  onBeforeMount(() => {
-    modeStore.init()
-  })
+  const { isDarkMode, toggle } = useDarkMode()
 
   watchEffect(() => {
     if (isDarkMode.value) {
-      document.documentElement.classList.add('dark')
+      document.documentElement.classList.add(MODE.DARK)
       return
     }
 
-    document.documentElement.classList.remove('dark')
+    document.documentElement.classList.remove(MODE.DARK)
   })
 </script>
 
