@@ -1,15 +1,15 @@
 <template>
-  <div class="relative">
+  <div class="relative min-w-[18.25rem] md:min-w-[30rem]">
     <img class="image" :src="image" draggable="false" />
     <section class="relative pointer-events-none z-10">
       <h1 class="h1 mb-4 lg:mb-6">{{ msg }}</h1>
       <div class="py-2 text-sm">
-        <div v-if="loading">loading...</div>
+        <div v-if="loading">{{ $t('loading') }}</div>
         <p v-if="greeting">{{ greeting }}</p>
       </div>
       <div class="mb-4 lg:mb-6">
-        <h2 class="h2">My name is {{ name }}</h2>
-        <p class="text-purple-300">{{ description }}</p>
+        <h2 class="h2">{{ $t('My name is') }} {{ $t(`${name}`) }}</h2>
+        <p class="text-purple-300">{{ $t(`${description}`) }}</p>
       </div>
       <div class="space-x-4 pointer-events-auto">
         <a
@@ -70,7 +70,7 @@
 
 <style scoped>
   .image {
-    @apply absolute top-10 right-0 xl:top-0;
+    @apply absolute top-10 right-0 md:top-0;
     @apply w-48 opacity-70 transition-all duration-500;
 
     clip-path: circle(50%);
