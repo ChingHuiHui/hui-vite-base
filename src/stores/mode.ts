@@ -27,6 +27,7 @@ export const useModeStore = defineStore('modeStore', {
       this.themeMode = mode
     },
     toggle(): void {
+      console.log('toggle')
       this.setThemeMode(this.themeMode === MODE.DARK ? MODE.LIGHT : MODE.DARK)
     },
   },

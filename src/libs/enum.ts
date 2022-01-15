@@ -1,4 +1,4 @@
-export const MODE: { LIGHT: string, DARK: string } = {
-  LIGHT: 'LIGHT',
-  DARK: 'DARK',
+export enum MODE {
+  LIGHT = 'light',
+  DARK = 'dark',
 }

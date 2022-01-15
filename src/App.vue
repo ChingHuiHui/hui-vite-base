@@ -20,11 +20,11 @@
 
   watchEffect(() => {
     if (isDarkMode.value) {
-      document.documentElement.classList.add(MODE.DARK)
+      document.documentElement.classList.add('dark')
       return
     }
 
-    document.documentElement.classList.remove(MODE.DARK)
+    document.documentElement.classList.remove('dark')
   })
 </script>
 
