@@ -1,13 +1,13 @@
 <template>
   <div class="relative">
     <img class="image" :src="image" draggable="false" />
-    <section class="relative z-10">
+    <section class="relative pointer-events-none z-10">
       <h1 class="h1 mb-4 lg:mb-6">{{ msg }}</h1>
       <div class="mb-4 lg:mb-6">
         <h2 class="h2">My name is {{ name }}</h2>
         <p class="text-purple-300">{{ description }}</p>
       </div>
-      <div class="space-x-4">
+      <div class="space-x-4 pointer-events-auto">
         <a
           v-for="{ link, icon: { pack, name } } in contact"
           :key="name"
