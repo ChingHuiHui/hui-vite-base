@@ -17,6 +17,8 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
+import StoragePlugin from '@/plugins/storage'
+
 import './assets/styles/index.css'
 
 // apollo
@@ -51,4 +53,7 @@ function loadFontAwesome() {
 
 loadFontAwesome()
 
-app.use(pinia).mount('#app')
+app.use(StoragePlugin)
+app.use(pinia)
+
+app.mount('#app')
