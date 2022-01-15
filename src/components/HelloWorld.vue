@@ -1,9 +1,8 @@
 <template>
   <div class="relative">
     <img
-      class="absolute right-0 opacity-50"
-      src="@/assets/images/IU.jpg"
-      alt=""
+      class="absolute top-10 right-0 opacity-80 dark:opacity-50 xl:top-0"
+      :src="image"
     />
     <section class="relative z-10">
       <h1 class="font-bold text-xl mb-4 lg:text-3xl lg:mb-6">{{ msg }}</h1>
@@ -29,29 +28,29 @@
 </template>
 
 <script setup lang="ts">
-  import { useUserStore } from '@/stores/user'
   import { storeToRefs } from 'pinia'
-  import { useQuery, useResult } from '@vue/apollo-composable'
-  import gql from 'graphql-tag'
+  import { computed } from 'vue'
+
+  import useDarkMode from '@/compositions/useDarkMode'
+  import { useUserStore } from '@/stores/user'
+
+  import IUDark from '@/assets/images/IU.jpg'
+  import IULight from '@/assets/images/IU-light.jpg'
 
   import HuiIcon from './HuiIcon.vue'
 
   defineProps<{ msg: string }>()
+
+  const { isDarkMode } = useDarkMode()
 
   const userStore = useUserStore()
 
   const { name, description, github, email, position, age } =
     storeToRefs(userStore)
 
-  const { result, loading } = useQuery(
-    gql`
-      query {
-        greeting
-      }
-    `
-  )
-
-  const greeting = useResult(result, '')
+  const image = computed(() => {
+    return isDarkMode.value ? IUDark : IULight
+  })
 </script>
 
 <style scoped>

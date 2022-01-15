@@ -27,8 +27,12 @@ export const useModeStore = defineStore('modeStore', {
       this.themeMode = mode
     },
     toggle(): void {
-      console.log('toggle')
       this.setThemeMode(this.themeMode === MODE.DARK ? MODE.LIGHT : MODE.DARK)
     },
   },
 })
+
+// HMR (Hot Module Replacement)
+if (import.meta.hot) {
+  import.meta.hot.accept(acceptHMRUpdate(useModeStore, import.meta.hot))
+}

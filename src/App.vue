@@ -4,17 +4,24 @@
   >
     <div class="container flex flex-col items-center">
       <HelloWorld msg="Hello It's the vue-project-base" />
-
-      <button @click="toggle">TOGGLE</button>
     </div>
+    <button class="absolute top-5 right-5" @click="toggle">
+      <hui-icon
+        class="text-xl"
+        :pack="isDarkMode ? 'fas' : 'far'"
+        icon="moon"
+      />
+    </button>
   </main>
 </template>
 
 <script setup lang="ts">
   import { watchEffect } from 'vue'
-  import HelloWorld from '@/components/HelloWorld.vue'
+
   import useDarkMode from '@/compositions/useDarkMode'
-  import { MODE } from '@/libs/enum'
+
+  import HelloWorld from '@/components/HelloWorld.vue'
+  import HuiIcon from '@/components/HuiIcon.vue'
 
   const { isDarkMode, toggle } = useDarkMode()
 
