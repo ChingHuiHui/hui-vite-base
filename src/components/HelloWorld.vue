@@ -3,6 +3,10 @@
     <img class="image" :src="image" draggable="false" />
     <section class="relative pointer-events-none z-10">
       <h1 class="h1 mb-4 lg:mb-6">{{ msg }}</h1>
+      <div class="py-2 text-sm">
+        <div v-if="loading">loading...</div>
+        <p v-if="greeting">{{ greeting }}</p>
+      </div>
       <div class="mb-4 lg:mb-6">
         <h2 class="h2">My name is {{ name }}</h2>
         <p class="text-purple-300">{{ description }}</p>
@@ -19,16 +23,15 @@
         </a>
       </div>
     </section>
-    <div>
-      <div v-if="loading">loading...</div>
-      <p>{{ greeting }}</p>
-    </div>
   </div>
 </template>
 
 <script setup lang="ts">
   import { storeToRefs } from 'pinia'
   import { computed } from 'vue'
+
+  import { useQuery, useResult } from '@vue/apollo-composable'
+  import gql from 'graphql-tag'
 
   import useDarkMode from '@/compositions/useDarkMode'
   import { useUserStore } from '@/stores/user'
@@ -55,6 +58,14 @@
     { link: `mailto:${email.value}`, icon: { pack: 'fas', name: 'envelope' } },
     { link: github.value, icon: { pack: 'fab', name: 'github' } },
   ]
+
+  const { result, loading } = useQuery(gql`
+    query {
+      greeting
+    }
+  `)
+
+  const greeting = useResult(result, '')
 </script>
 
 <style scoped>
