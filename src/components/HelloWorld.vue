@@ -2,10 +2,10 @@
   <div class="relative">
     <img class="image" :src="image" draggable="false" />
     <section class="relative z-10">
-      <h1 class="font-bold text-xl mb-4 lg:text-3xl lg:mb-6">{{ msg }}</h1>
+      <h1 class="h1 mb-4 lg:mb-6">{{ msg }}</h1>
       <div class="mb-4 lg:mb-6">
-        <h2 class="font-medium text-lg lg:text-2xl">My name is {{ name }}</h2>
-        <p class="description text-purple-300">{{ description }}</p>
+        <h2 class="h2">My name is {{ name }}</h2>
+        <p class="text-purple-300">{{ description }}</p>
       </div>
       <div class="space-x-4">
         <a
