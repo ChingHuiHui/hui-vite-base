@@ -52,8 +52,8 @@
   })
 
   const contact = [
-    { link: `mailto:${email.value}`, icon: { pack: 'fab', name: 'github' } },
-    { link: github.value, icon: { pack: 'fas', name: 'envelope' } },
+    { link: `mailto:${email.value}`, icon: { pack: 'fas', name: 'envelope' } },
+    { link: github.value, icon: { pack: 'fab', name: 'github' } },
   ]
 </script>
 
