@@ -21,12 +21,19 @@
         </a>
       </div>
     </section>
+    <div>
+      <div v-if="loading">loading...</div>
+      <p>{{ greeting }}</p>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
   import { useUserStore } from '@/stores/user'
   import { storeToRefs } from 'pinia'
+  import { useQuery, useResult } from '@vue/apollo-composable'
+  import gql from 'graphql-tag'
+
   import HuiIcon from './HuiIcon.vue'
 
   defineProps<{ msg: string }>()
@@ -35,6 +42,16 @@
 
   const { name, description, github, email, position, age } =
     storeToRefs(userStore)
+
+  const { result, loading } = useQuery(
+    gql`
+      query {
+        greeting
+      }
+    `
+  )
+
+  const greeting = useResult(result, '')
 </script>
 
 <style scoped>
