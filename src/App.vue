@@ -1,16 +1,10 @@
 <template>
   <div class="min-h-screen flex flex-col">
+    <default-header />
     <main class="flex-1 flex-center mb-auto">
       <div class="container flex-center">
-        <HelloWorld msg="Hello It's the vue-project-base" />
+        <HelloWorld :msg="$t('hello')" />
       </div>
-      <button class="absolute top-5 right-5" @click="toggle">
-        <hui-icon
-          class="text-xl"
-          :pack="isDarkMode ? 'fas' : 'far'"
-          icon="moon"
-        />
-      </button>
     </main>
   </div>
 </template>
@@ -20,10 +14,10 @@
 
   import useDarkMode from '@/compositions/useDarkMode'
 
+  import DefaultHeader from '@/components/Layout/DefaultHeader.vue'
   import HelloWorld from '@/components/HelloWorld.vue'
-  import HuiIcon from '@/components/HuiIcon.vue'
 
-  const { isDarkMode, toggle } = useDarkMode()
+  const { isDarkMode } = useDarkMode()
 
   watchEffect(() => {
     if (isDarkMode.value) {
