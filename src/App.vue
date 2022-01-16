@@ -10,12 +10,16 @@
 </template>
 
 <script setup lang="ts">
-  import { watchEffect } from 'vue'
+  import { onBeforeMount, watchEffect } from 'vue'
 
   import useDarkMode from '@/compositions/useDarkMode'
 
   import DefaultHeader from '@/components/Layout/DefaultHeader.vue'
   import HelloWorld from '@/components/HelloWorld.vue'
+
+  import IUDark from '@/assets/images/IU.jpg'
+  import IULight from '@/assets/images/IU-light.jpg'
+  import { preloadAll } from './libs/helpers'
 
   const { isDarkMode } = useDarkMode()
 
@@ -26,5 +30,9 @@
     }
 
     document.documentElement.classList.remove('dark')
+  })
+
+  onBeforeMount(() => {
+    preloadAll([IUDark, IULight])
   })
 </script>
