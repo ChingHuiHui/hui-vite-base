@@ -27,17 +27,20 @@ jobs:
           clean: true
         env:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-   notify:
+  notify:
     runs-on: ubuntu-latest
     needs: [build-and-deploy]
     steps:
       - uses: snow-actions/line-notify@v1.0.0
-        if: always() && build-and-deploy.status == 'success' 
+        if: always()
         with:
           access_token: ${{ secrets.LINE_ACCESS_TOKEN }}
-          message: |
+          message: >
             ${{ github.workflow	}}
-            Build ${{ github.run_id	}} Success.
-            Project: ${{ github.repository }}
-            Branch: ${{ github.ref_name	}}
-            Commit: ${{ github.sha }}
+            Build <https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id	}}> is ${{ needs.build-and-deploy.result }}.
+
+            Project: <https://github.com/${{ github.repository }}>
+
+            Branch: <https://github.com/${{github.repository}}/commits/${{ github.ref_name }}>
+
+            Commit: <https://github.com/${{github.repository}}/commit/${{ github.sha }}>
