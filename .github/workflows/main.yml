@@ -18,6 +18,8 @@ jobs:
       - run: |
           npm install
           npm run build
+        env:
+          VITE_GRAPHQL_HTTP_ENDPOINT: ${{ secrets.VITE_GRAPHQL_HTTP_ENDPOINT }}
 
       - name: deploy
         uses: JamesIves/github-pages-deploy-action@4.2.0
