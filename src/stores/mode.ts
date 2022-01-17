@@ -47,8 +47,3 @@ export const useModeStore = defineStore('modeStore', {
 if (import.meta.hot) {
   import.meta.hot.accept(acceptHMRUpdate(useModeStore, import.meta.hot))
 }
-
-// HMR (Hot Module Replacement)
-if (import.meta.hot) {
-  import.meta.hot.accept(acceptHMRUpdate(useModeStore, import.meta.hot))
-}
